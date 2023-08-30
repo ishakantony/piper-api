@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Get commit from git
+commit_msg=$(cat "$1")
+
+# Change the working directory to the directory where the script is located
+cd "$(dirname "$0")" || exit 1
+
+# Imports
+source ./../scripts/util.sh
+source ./../scripts/commit-message-checker.sh
+
+## Intro Text
+print_color "yellow" "
+====================================================
+Commit Message Validator
+
+Motto: \"In doubt, contact your maintainer!\"
+====================================================
+"
+
+check_commit_message "$commit_msg"
+
+exit $?

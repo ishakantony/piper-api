@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./mvnw spring-javaformat:validate checkstyle:check
