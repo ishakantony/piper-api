@@ -1,4 +1,4 @@
-package app.phlane.phlane;
+package app.piper.piper;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -8,7 +8,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration(proxyBeanMethods = false)
-public class TestPhlaneApplication {
+public class TestPiperApplication {
 
     @Bean
     @ServiceConnection
@@ -17,7 +17,7 @@ public class TestPhlaneApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.from(PhlaneApplication::main).with(TestPhlaneApplication.class).run(args);
+        SpringApplication.from(PiperApplication::main).with(TestPiperApplication.class).run(args);
     }
 
 }
