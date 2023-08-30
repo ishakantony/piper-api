@@ -1,3 +1,14 @@
+##############################################
+# THIS FILE IS FOR SPRING CONFIGURATION ONLY #
+##############################################
+
+server:
+  port: ${PIPER_SERVER_PORT:2796}
+  servlet:
+    context-path: '/api'
+
 spring:
-  jpa:
-    open-in-view: false
+  config:
+    import:
+      - application-database.yml
+      - application-logging.yml

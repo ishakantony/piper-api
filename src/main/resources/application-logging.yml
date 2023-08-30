@@ -1,0 +1,13 @@
+###############################################
+# THIS FILE IS FOR LOGGING CONFIGURATION ONLY #
+###############################################
+
+logging:
+  level:
+    root: ${LOGGING_LEVEL_ROOT:INFO}
+    org.zalando.logbook: ${LOGGING_LEVEL_ORG_ZALANDO_LOGBOOK:OFF}
+    org.hibernate.SQL: ${LOGGING_LEVEL_ORG_HIBERNATE_SQL:OFF}
+    org.hibernate.type.descriptor.sql.BasicBinder: ${LOGGING_LEVEL_ORG_HIBERNATE_TYPE_DESCRIPTOR_SQL_BASICBINDER:OFF}
+    org.springframework.web: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB:OFF}
+    org.springframework.transaction: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_TRANSACTION:OFF}
+    com.zaxxer.hikari: ${LOGGING_LEVEL_COM_ZAXXER_HIKARI:OFF}
