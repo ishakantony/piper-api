@@ -1,0 +1,16 @@
+################################################
+# THIS FILE IS FOR DATABASE CONFIGURATION ONLY #
+################################################
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  datasource:
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+    username: sa
+    password:
+    url: jdbc:h2:mem:piper

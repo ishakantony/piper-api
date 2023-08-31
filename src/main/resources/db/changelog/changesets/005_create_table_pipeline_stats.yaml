@@ -37,15 +37,21 @@ databaseChangeLog:
                   type: int
               - column:
                   name: longest_running_duration
-                  type: bigint
+                  type: numeric(21,0)
               - column:
                   name: shortest_running_duration
-                  type: bigint
+                  type: numeric(21,0)
               - column:
                   name: average_running_duration
-                  type: bigint
+                  type: numeric(21,0)
+        - addColumn:
+            tableName: pipeline
+            columns:
+              - column:
+                  name: pipeline_stats_id
+                  type: uuid
         - addForeignKeyConstraint:
-            baseColumnNames: pipeline_id
+            baseColumnNames: pipeline_stats_id
             baseTableName: pipeline
             constraintName: FK_pipeline_pipeline_stats
             referencedTableName: pipeline_stats

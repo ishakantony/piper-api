@@ -1,0 +1,14 @@
+##############################################
+# THIS FILE IS FOR SPRING CONFIGURATION ONLY #
+##############################################
+
+server:
+  port: 2796
+  servlet:
+    context-path: '/api'
+
+spring:
+  config:
+    import:
+      - application-database.yml
+      - application-logging.yml
