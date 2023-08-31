@@ -1,6 +1,3 @@
 databaseChangeLog:
-  - changeSet:
-      id: empty-first
-      author: ishakantony
-      changes:
-        - empty: {}
+  - includeAll:
+      path: db/changelog/changesets

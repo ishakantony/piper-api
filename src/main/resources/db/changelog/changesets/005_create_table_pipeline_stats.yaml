@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_pipeline_stats
+      author: ishak.antony
+      changes:
+        - createTable:
+            tableName: pipeline_stats
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: health
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_success_pipeline_completed_at
+                  type: timestamp
+              - column:
+                  name: last_failed_pipeline_completed_at
+                  type: timestamp
+              - column:
+                  name: total_pipelines_count
+                  type: int
+              - column:
+                  name: longest_running_duration
+                  type: bigint
+              - column:
+                  name: shortest_running_duration
+                  type: bigint
+              - column:
+                  name: average_running_duration
+                  type: bigint
+        - addForeignKeyConstraint:
+            baseColumnNames: pipeline_id
+            baseTableName: pipeline
+            constraintName: FK_pipeline_pipeline_stats
+            referencedTableName: pipeline_stats
+            referencedColumnNames: id

@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_setting
+      author: ishak.antony
+      changes:
+        - createTable:
+            tableName: setting
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: data
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

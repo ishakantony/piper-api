@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_pipeline_template
+      author: ishak.antony
+      changes:
+        - createTable:
+            tableName: pipeline_template
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: revision
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: config
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: pipeline_id
+                  type: uuid
+        - addForeignKeyConstraint:
+            baseTableName: pipeline_template
+            baseColumnNames: pipeline_id
+            constraintName: FK_pipeline_template_pipeline
+            referencedTableName: pipeline
+            referencedColumnNames: id
+        - addUniqueConstraint:
+            columnNames: revision,pipeline_id
+            constraintName: UQ_pipeline_template_revision_pipeline
+            tableName: pipeline_template

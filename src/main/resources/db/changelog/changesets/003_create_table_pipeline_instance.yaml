@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_pipeline_instance
+      author: ishak.antony
+      changes:
+        - createTable:
+            tableName: pipeline_instance
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: instance_number
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_at
+                  type: timestamp
+              - column:
+                  name: end_at
+                  type: timestamp
+              - column:
+                  name: pipeline_id
+                  type: uuid
+              - column:
+                  name: pipeline_template_id
+                  type: uuid
+        - addForeignKeyConstraint:
+            baseTableName: pipeline_instance
+            baseColumnNames: pipeline_id
+            constraintName: FK_pipeline_instance_pipeline
+            referencedTableName: pipeline
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: pipeline_instance
+            baseColumnNames: pipeline_template_id
+            constraintName: FK_pipeline_instance_template
+            referencedTableName: pipeline_template
+            referencedColumnNames: id
