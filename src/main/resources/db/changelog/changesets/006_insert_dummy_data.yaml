@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert_dummy_data
+      author: ishak.antony
+      contextFilter: test
+      changes:
+        - sql:
+            sql: >
+              INSERT INTO pipeline (id, created_at, updated_at, name, slug, description)
+              VALUES
+                ('12345678-1234-1234-1234-123456789abc', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Data Processing Pipeline', 'data-processing', 'Process and transform data for analytics'),
+                ('23456789-2345-2345-2345-23456789abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Image Recognition Pipeline', 'image-recognition', 'Analyze images using deep learning models'),
+                ('34567890-3456-3456-3456-34567890abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'E-commerce Order Processing', 'ecommerce-order', 'Manage orders and inventory for online store'),
+                ('45678901-4567-4567-4567-45678901abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Customer Segmentation Pipeline', 'customer-segmentation', 'Segment customers based on behavior and demographics'),
+                ('56789012-5678-5678-5678-56789012abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Fraud Detection Pipeline', 'fraud-detection', 'Identify fraudulent activities in financial transactions'),
+                ('67890123-6789-6789-6789-67890123abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Recommendation Engine Pipeline', 'recommendation-engine', 'Generate personalized product recommendations'),
+                ('78901234-7890-7890-7890-78901234abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Social Media Sentiment Analysis', 'social-media-sentiment', 'Analyze public sentiment on social media posts'),
+                ('89012345-8901-8901-8901-89012345abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Health Monitoring Pipeline', 'health-monitoring', 'Monitor patient vitals and health data in real-time'),
+                ('90123456-9012-9012-9012-90123456abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Log Analysis Pipeline', 'log-analysis', 'Parse and analyze logs for debugging and insights'),
+                ('01234567-0123-0123-0123-01234567abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Weather Data Processing Pipeline', 'weather-data', 'Process and analyze meteorological data for forecasts');
+        - sql:
+            sql: >
+              INSERT INTO pipeline_template (id, created_at, updated_at, revision, config, pipeline_id)
+              VALUES
+                ('4a9c54d3-9e5f-4b0f-9ca7-b7e0efc13d1e', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=true,isAllowedOverwrite=false', '12345678-1234-1234-1234-123456789abc'),
+                ('2e93f52e-c098-4974-896e-8d6ce3e69c49', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 'isAllowedMultiple=false,isAllowedOverwrite=true', '12345678-1234-1234-1234-123456789abc'),
+                ('3e0ecd02-243b-45c6-a0a3-f9a404619035', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=true,isAllowedOverwrite=true', '34567890-3456-3456-3456-34567890abcd'),
+                ('1fba6f77-da7a-4fb3-ad27-5a4c667a35e0', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=false,isAllowedOverwrite=false', '45678901-4567-4567-4567-45678901abcd'),
+                ('038aeef8-4329-490c-96e9-7d49869b2072', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=true,isAllowedOverwrite=true', '56789012-5678-5678-5678-56789012abcd'),
+                ('95faee61-edec-4a35-92cc-7aede56013af', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=false,isAllowedOverwrite=false', '67890123-6789-6789-6789-67890123abcd'),
+                ('ea1c1910-fc01-40ca-ac43-7935c0375749', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=true,isAllowedOverwrite=false', '78901234-7890-7890-7890-78901234abcd'),
+                ('0e53db67-bfa9-4294-90b8-8ed015b4bc9f', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=false,isAllowedOverwrite=true', '89012345-8901-8901-8901-89012345abcd'),
+                ('af47d16a-34a2-4b01-aa4a-8ef2bd328176', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 'isAllowedMultiple=true,isAllowedOverwrite=true', '89012345-8901-8901-8901-89012345abcd'),
+                ('98eee2a4-2b96-4a21-9077-da2fc5e4b1f3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 'isAllowedMultiple=false,isAllowedOverwrite=false', '89012345-8901-8901-8901-89012345abcd');
+        - sql:
+            sql: >
+              INSERT INTO pipeline_instance (id, created_at, updated_at, name, instance_number, status, start_at, end_at, pipeline_id, pipeline_template_id)
+              VALUES
+                ('1c96ac1e-50f4-437d-9d6c-3df9be6f8db7', '2023-06-15 12:34:56+08:00', '2023-06-16 15:00:00+08:00', 'Data Processing Pipeline #1', 1, 'SUCCESSFUL', '2023-06-16 12:34:56+08:00', '2023-06-16 15:00:00+08:00', '12345678-1234-1234-1234-123456789abc', '4a9c54d3-9e5f-4b0f-9ca7-b7e0efc13d1e'),
+                ('2f3f014b-4b64-4c1b-b3af-7540f456bdf2', '2023-06-20 09:45:00+08:00', '2023-06-21 14:00:00+08:00', 'Data Processing Pipeline #2', 2, 'FAILED', '2023-06-21 09:45:00+08:00', '2023-06-21 14:00:00+08:00', '12345678-1234-1234-1234-123456789abc', '4a9c54d3-9e5f-4b0f-9ca7-b7e0efc13d1e'),
+                ('4e782b6e-6c54-4dcb-89e6-1a3f56e9efc9', '2023-07-05 16:20:00+08:00', '2023-07-06 18:30:00+08:00', 'Data Processing Pipeline #3', 3, 'SUCCESSFUL', '2023-07-06 16:20:00+08:00', '2023-07-06 18:30:00+08:00', '12345678-1234-1234-1234-123456789abc', '4a9c54d3-9e5f-4b0f-9ca7-b7e0efc13d1e'),
+                ('6d9c47b8-53aa-4b0f-9cb7-af1ad81e0ee5', '2023-07-15 18:30:00+08:00', '2023-07-16 21:45:00+08:00', 'Data Processing Pipeline #4', 4, 'SUCCESSFUL', '2023-07-16 18:30:00+08:00', '2023-07-16 21:45:00+08:00', '12345678-1234-1234-1234-123456789abc', '2e93f52e-c098-4974-896e-8d6ce3e69c49'),
+                ('8c5a890f-ff5a-4a08-9e5e-c2f6ab68c5db', '2023-06-01 10:00:00+08:00', '2023-06-01 12:00:00+08:00', 'Recommendation Engine Pipeline #1', 1, 'SUCCESSFUL', '2023-06-01 11:00:00+08:00', '2023-06-01 12:30:00+08:00', '67890123-6789-6789-6789-67890123abcd', '95faee61-edec-4a35-92cc-7aede56013af'),
+                ('3d1943b7-0e76-4ff1-96d6-0c172fc9d23d', '2023-06-05 09:00:00+08:00', '2023-06-05 11:00:00+08:00', 'Recommendation Engine Pipeline #2', 2, 'FAILED', '2023-06-05 10:00:00+08:00', '2023-06-05 11:30:00+08:00', '67890123-6789-6789-6789-67890123abcd', '95faee61-edec-4a35-92cc-7aede56013af'),
+                ('bcf4e99e-cb4a-45ad-b6d3-1c3eb3b8232f', '2023-06-10 15:00:00+08:00', '2023-06-10 17:00:00+08:00', 'Recommendation Engine Pipeline #3', 3, 'FAILED', '2023-06-10 16:00:00+08:00', '2023-06-10 17:30:00+08:00', '67890123-6789-6789-6789-67890123abcd', '95faee61-edec-4a35-92cc-7aede56013af'),
+                ('786b3e6d-6e4f-41c9-bc8a-6b8a4f617987', '2023-06-15 18:00:00+08:00', '2023-06-15 20:00:00+08:00', 'Recommendation Engine Pipeline #4', 4, 'FAILED', '2023-06-15 19:00:00+08:00', '2023-06-15 20:30:00+08:00', '67890123-6789-6789-6789-67890123abcd', '95faee61-edec-4a35-92cc-7aede56013af'),
+                ('2e0a79d7-915d-4753-9f85-79b4e855f11f', '2023-06-20 08:00:00+08:00', '2023-06-20 10:00:00+08:00', 'Recommendation Engine Pipeline #5', 5, 'SUCCESSFUL', '2023-06-20 09:00:00+08:00', '2023-06-20 10:30:00+08:00', '67890123-6789-6789-6789-67890123abcd', '95faee61-edec-4a35-92cc-7aede56013af'),
+                ('ab68e8a3-6f39-4ea5-8d37-751be96df61a', '2023-06-25 13:00:00+08:00', '2023-06-25 15:00:00+08:00', 'Recommendation Engine Pipeline #6', 6, 'SUCCESSFUL', '2023-06-25 14:00:00+08:00', '2023-06-25 15:30:00+08:00', '67890123-6789-6789-6789-67890123abcd', '95faee61-edec-4a35-92cc-7aede56013af'),
+                ('ef83f3e5-29e7-496e-90f9-8c1e67225eb4', '2023-06-30 07:00:00+08:00', '2023-06-30 09:00:00+08:00', 'Recommendation Engine Pipeline #7', 7, 'SUCCESSFUL', '2023-06-30 08:00:00+08:00', '2023-06-30 09:30:00+08:00', '67890123-6789-6789-6789-67890123abcd', '95faee61-edec-4a35-92cc-7aede56013af'),
+                ('a7c8f19b-8eb0-4b1e-8e60-b6f160de00e0', '2023-07-05 14:00:00+08:00', '2023-07-05 16:00:00+08:00', 'Recommendation Engine Pipeline #8', 8, 'SUCCESSFUL', '2023-07-05 15:00:00+08:00', '2023-07-05 16:30:00+08:00', '67890123-6789-6789-6789-67890123abcd', '95faee61-edec-4a35-92cc-7aede56013af');
