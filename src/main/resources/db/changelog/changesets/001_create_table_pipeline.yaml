@@ -27,12 +27,14 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
+                    uniqueConstraintName: UQ_pipeline_name
               - column:
                   name: slug
-                  type: varchar(255)
+                  type: varchar(50)
                   constraints:
                     nullable: false
                     unique: true
+                    uniqueConstraintName: UQ_pipeline_slug
               - column:
                   name: description
                   type: varchar(4000)

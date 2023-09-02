@@ -24,7 +24,7 @@ public class Pipeline extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String slug;
 
     @Column(length = 4000)
