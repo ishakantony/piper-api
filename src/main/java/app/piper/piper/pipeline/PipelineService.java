@@ -1,9 +1,15 @@
 package app.piper.piper.pipeline;
 
+import app.piper.piper.common.PaginationRequest;
+import app.piper.piper.common.PaginationResponse;
+import app.piper.piper.util.PaginationMapper;
 import app.piper.piper.util.SlugGenerator;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,6 +47,17 @@ public class PipelineService {
                 throw ex;
             }
         }
+    }
+
+    public PaginationResponse<PipelineResponse> getPipelines(@NonNull PaginationRequest paginationRequest) {
+        PageRequest pageRequest = PageRequest.of(paginationRequest.getPageNumber(), paginationRequest.getPageSize(),
+                Sort.by(Sort.Direction.fromString(paginationRequest.getSortDirection()),
+                        paginationRequest.getSortBy()));
+
+        Page<PipelineResponse> pipelineResponsePage = pipelineRepository.findAll(pageRequest)
+                .map(pipelineMapper::pipelineToPipelineResponse);
+
+        return PaginationMapper.map(pipelineResponsePage.getContent(), pipelineResponsePage);
     }
 
 }

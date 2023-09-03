@@ -1,9 +1,13 @@
 package app.piper.piper.pipeline;
 
+import app.piper.piper.common.PaginationRequest;
+import app.piper.piper.common.PaginationResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +23,11 @@ public class PipelineController {
     @PostMapping
     public ResponseEntity<PipelineResponse> createPipeline(@Valid @RequestBody PipelineRequest pipelineRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(pipelineService.createPipeline(pipelineRequest));
+    }
+
+    @GetMapping
+    public PaginationResponse<PipelineResponse> getPipelines(@ModelAttribute PaginationRequest paginationRequest) {
+        return pipelineService.getPipelines(paginationRequest);
     }
 
 }

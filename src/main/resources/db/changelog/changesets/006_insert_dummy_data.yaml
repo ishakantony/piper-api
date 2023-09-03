@@ -8,30 +8,30 @@ databaseChangeLog:
             sql: >
               INSERT INTO pipeline (id, created_at, updated_at, name, slug, description)
               VALUES
-                ('12345678-1234-1234-1234-123456789abc', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Data Processing Pipeline', 'data-processing', 'Process and transform data for analytics'),
-                ('23456789-2345-2345-2345-23456789abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Image Recognition Pipeline', 'image-recognition', 'Analyze images using deep learning models'),
-                ('34567890-3456-3456-3456-34567890abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'E-commerce Order Processing', 'ecommerce-order', 'Manage orders and inventory for online store'),
-                ('45678901-4567-4567-4567-45678901abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Customer Segmentation Pipeline', 'customer-segmentation', 'Segment customers based on behavior and demographics'),
-                ('56789012-5678-5678-5678-56789012abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Fraud Detection Pipeline', 'fraud-detection', 'Identify fraudulent activities in financial transactions'),
-                ('67890123-6789-6789-6789-67890123abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Recommendation Engine Pipeline', 'recommendation-engine', 'Generate personalized product recommendations'),
-                ('78901234-7890-7890-7890-78901234abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Social Media Sentiment Analysis', 'social-media-sentiment', 'Analyze public sentiment on social media posts'),
-                ('89012345-8901-8901-8901-89012345abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Health Monitoring Pipeline', 'health-monitoring', 'Monitor patient vitals and health data in real-time'),
-                ('90123456-9012-9012-9012-90123456abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Log Analysis Pipeline', 'log-analysis', 'Parse and analyze logs for debugging and insights'),
-                ('01234567-0123-0123-0123-01234567abcd', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Weather Data Processing Pipeline', 'weather-data', 'Process and analyze meteorological data for forecasts');
+                ('12345678-1234-1234-1234-123456789abc', '2023-05-01 00:00:00+08:00', '2023-05-01 00:00:00+08:00', 'Data Processing Pipeline', 'data-processing', 'Process and transform data for analytics'),
+                ('23456789-2345-2345-2345-23456789abcd', '2023-05-02 00:00:00+08:00', '2023-05-02 00:00:00+08:00', 'Image Recognition Pipeline', 'image-recognition', 'Analyze images using deep learning models'),
+                ('34567890-3456-3456-3456-34567890abcd', '2023-05-03 00:00:00+08:00', '2023-05-03 00:00:00+08:00', 'E-commerce Order Processing', 'ecommerce-order', 'Manage orders and inventory for online store'),
+                ('45678901-4567-4567-4567-45678901abcd', '2023-05-04 00:00:00+08:00', '2023-05-04 00:00:00+08:00', 'Customer Segmentation Pipeline', 'customer-segmentation', 'Segment customers based on behavior and demographics'),
+                ('56789012-5678-5678-5678-56789012abcd', '2023-05-04 00:00:00+08:00', '2023-05-04 00:00:00+08:00', 'Fraud Detection Pipeline', 'fraud-detection', 'Identify fraudulent activities in financial transactions'),
+                ('67890123-6789-6789-6789-67890123abcd', '2023-05-05 00:00:00+08:00', '2023-05-05 00:00:00+08:00', 'Recommendation Engine Pipeline', 'recommendation-engine', 'Generate personalized product recommendations'),
+                ('78901234-7890-7890-7890-78901234abcd', '2023-05-06 00:00:00+08:00', '2023-05-06 00:00:00+08:00', 'Social Media Sentiment Analysis', 'social-media-sentiment', 'Analyze public sentiment on social media posts'),
+                ('89012345-8901-8901-8901-89012345abcd', '2023-05-07 00:00:00+08:00', '2023-05-07 00:00:00+08:00', 'Health Monitoring Pipeline', 'health-monitoring', 'Monitor patient vitals and health data in real-time'),
+                ('90123456-9012-9012-9012-90123456abcd', '2023-05-08 00:00:00+08:00', '2023-05-08 00:00:00+08:00', 'Log Analysis Pipeline', 'log-analysis', 'Parse and analyze logs for debugging and insights'),
+                ('01234567-0123-0123-0123-01234567abcd', '2023-05-09 00:00:00+08:00', '2023-05-09 00:00:00+08:00', 'Weather Data Processing Pipeline', 'weather-data', 'Process and analyze meteorological data for forecasts');
         - sql:
             sql: >
               INSERT INTO pipeline_template (id, created_at, updated_at, revision, config, pipeline_id)
               VALUES
-                ('4a9c54d3-9e5f-4b0f-9ca7-b7e0efc13d1e', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=true,isAllowedOverwrite=false', '12345678-1234-1234-1234-123456789abc'),
-                ('2e93f52e-c098-4974-896e-8d6ce3e69c49', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 'isAllowedMultiple=false,isAllowedOverwrite=true', '12345678-1234-1234-1234-123456789abc'),
-                ('3e0ecd02-243b-45c6-a0a3-f9a404619035', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=true,isAllowedOverwrite=true', '34567890-3456-3456-3456-34567890abcd'),
-                ('1fba6f77-da7a-4fb3-ad27-5a4c667a35e0', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=false,isAllowedOverwrite=false', '45678901-4567-4567-4567-45678901abcd'),
-                ('038aeef8-4329-490c-96e9-7d49869b2072', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=true,isAllowedOverwrite=true', '56789012-5678-5678-5678-56789012abcd'),
-                ('95faee61-edec-4a35-92cc-7aede56013af', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=false,isAllowedOverwrite=false', '67890123-6789-6789-6789-67890123abcd'),
-                ('ea1c1910-fc01-40ca-ac43-7935c0375749', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=true,isAllowedOverwrite=false', '78901234-7890-7890-7890-78901234abcd'),
-                ('0e53db67-bfa9-4294-90b8-8ed015b4bc9f', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'isAllowedMultiple=false,isAllowedOverwrite=true', '89012345-8901-8901-8901-89012345abcd'),
-                ('af47d16a-34a2-4b01-aa4a-8ef2bd328176', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 'isAllowedMultiple=true,isAllowedOverwrite=true', '89012345-8901-8901-8901-89012345abcd'),
-                ('98eee2a4-2b96-4a21-9077-da2fc5e4b1f3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 'isAllowedMultiple=false,isAllowedOverwrite=false', '89012345-8901-8901-8901-89012345abcd');
+                ('4a9c54d3-9e5f-4b0f-9ca7-b7e0efc13d1e', '2023-05-10 00:00:00+08:00', '2023-05-10 00:00:00+08:00', 1, 'isAllowedMultiple=true,isAllowedOverwrite=false', '12345678-1234-1234-1234-123456789abc'),
+                ('2e93f52e-c098-4974-896e-8d6ce3e69c49', '2023-05-10 00:00:00+08:00', '2023-05-10 00:00:00+08:00', 2, 'isAllowedMultiple=false,isAllowedOverwrite=true', '12345678-1234-1234-1234-123456789abc'),
+                ('3e0ecd02-243b-45c6-a0a3-f9a404619035', '2023-05-11 00:00:00+08:00', '2023-05-11 00:00:00+08:00', 1, 'isAllowedMultiple=true,isAllowedOverwrite=true', '34567890-3456-3456-3456-34567890abcd'),
+                ('1fba6f77-da7a-4fb3-ad27-5a4c667a35e0', '2023-05-12 00:00:00+08:00', '2023-05-12 00:00:00+08:00', 1, 'isAllowedMultiple=false,isAllowedOverwrite=false', '45678901-4567-4567-4567-45678901abcd'),
+                ('038aeef8-4329-490c-96e9-7d49869b2072', '2023-05-13 00:00:00+08:00', '2023-05-13 00:00:00+08:00', 1, 'isAllowedMultiple=true,isAllowedOverwrite=true', '56789012-5678-5678-5678-56789012abcd'),
+                ('95faee61-edec-4a35-92cc-7aede56013af', '2023-05-13 00:00:00+08:00', '2023-05-13 00:00:00+08:00', 1, 'isAllowedMultiple=false,isAllowedOverwrite=false', '67890123-6789-6789-6789-67890123abcd'),
+                ('ea1c1910-fc01-40ca-ac43-7935c0375749', '2023-05-14 00:00:00+08:00', '2023-05-14 00:00:00+08:00', 1, 'isAllowedMultiple=true,isAllowedOverwrite=false', '78901234-7890-7890-7890-78901234abcd'),
+                ('0e53db67-bfa9-4294-90b8-8ed015b4bc9f', '2023-05-15 00:00:00+08:00', '2023-05-15 00:00:00+08:00', 1, 'isAllowedMultiple=false,isAllowedOverwrite=true', '89012345-8901-8901-8901-89012345abcd'),
+                ('af47d16a-34a2-4b01-aa4a-8ef2bd328176', '2023-05-16 00:00:00+08:00', '2023-05-16 00:00:00+08:00', 2, 'isAllowedMultiple=true,isAllowedOverwrite=true', '89012345-8901-8901-8901-89012345abcd'),
+                ('98eee2a4-2b96-4a21-9077-da2fc5e4b1f3', '2023-05-17 00:00:00+08:00', '2023-05-17 00:00:00+08:00', 3, 'isAllowedMultiple=false,isAllowedOverwrite=false', '89012345-8901-8901-8901-89012345abcd');
         - sql:
             sql: >
               INSERT INTO pipeline_instance (id, created_at, updated_at, name, instance_number, status, start_at, end_at, pipeline_id, pipeline_template_id)
