@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
-@ComponentScan(basePackages = { "app.piper.piper.pipeline", "app.piper.piper.util" })
+@ComponentScan(basePackages = { "app.piper.piper.pipeline", "app.piper.piper.util", "app.piper.piper.setting" })
 @Import({ ObjectMapper.class })
 class PipelineServiceTest {
 

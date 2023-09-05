@@ -31,6 +31,13 @@ import org.springframework.http.HttpStatus;
 @Data
 public abstract class PiperException extends RuntimeException {
 
+    public PiperException(HttpStatus status, String code, List<String> errors, String message) {
+        super(message);
+        this.status = status;
+        this.code = code;
+        this.errors = errors;
+    }
+
     public PiperException(HttpStatus status, String code, List<String> errors, String message, Throwable cause) {
         super(message, cause);
         this.status = status;

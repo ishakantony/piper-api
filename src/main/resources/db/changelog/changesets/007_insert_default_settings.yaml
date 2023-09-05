@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert_default_settings
+      author: ishak.antony
+      changes:
+        - sql:
+            sql: >
+              INSERT INTO setting (id, created_at, updated_at, name, data)
+              VALUES
+                ('bb5793f6-68f5-4f64-8f5a-e5b37384127d', '2023-02-01 00:00:00+08:00', '2023-02-01 00:00:00+08:00', 'pipeline.statistics', '{"maxInstanceRecordsPerPipeline": 100, "healthyPipelineTolerance": 0.7}');
