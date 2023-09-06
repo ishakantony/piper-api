@@ -10,7 +10,7 @@ public class PipelineNotFoundException extends PiperException {
     private static final String ERROR_MESSAGE = "Pipeline not found";
 
     public PipelineNotFoundException() {
-        super(HttpStatus.BAD_REQUEST, ErrorCode.CLIENT_ERROR, List.of(ERROR_MESSAGE), ERROR_MESSAGE);
+        super(HttpStatus.NOT_FOUND, ErrorCode.CLIENT_ERROR, List.of(ERROR_MESSAGE), ERROR_MESSAGE);
     }
 
 }

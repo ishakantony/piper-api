@@ -1,7 +1,7 @@
 package app.piper.piper.pipeline.stats;
 
+import app.piper.piper.pipeline.InvalidPipelineException;
 import app.piper.piper.pipeline.Pipeline;
-import app.piper.piper.pipeline.PipelineNotFoundException;
 import app.piper.piper.pipeline.PipelineRepository;
 import app.piper.piper.pipeline.instance.PipelineInstance;
 import app.piper.piper.pipeline.instance.PipelineInstanceRepository;
@@ -29,7 +29,7 @@ public class PipelineStatsService {
     public PipelineStatsResponse collectStats(@NonNull UUID pipelineId) {
 
         // We can only collect stats for valid pipeline
-        Pipeline pipeline = pipelineRepository.findById(pipelineId).orElseThrow(PipelineNotFoundException::new);
+        Pipeline pipeline = pipelineRepository.findById(pipelineId).orElseThrow(InvalidPipelineException::new);
 
         // Create new stats if existing one don't have
         PipelineStats stats = Optional.ofNullable(pipeline.getStats()).orElse(new PipelineStats());
@@ -49,7 +49,7 @@ public class PipelineStatsService {
     }
 
     public PipelineStatsResponse getStats(@NonNull UUID pipelineId) {
-        Pipeline pipeline = pipelineRepository.findById(pipelineId).orElseThrow(PipelineNotFoundException::new);
+        Pipeline pipeline = pipelineRepository.findById(pipelineId).orElseThrow(InvalidPipelineException::new);
 
         return pipelineStatsMapper.pipelineStatsToPipelineStatsResponse(
                 Optional.ofNullable(pipeline.getStats()).orElseThrow(PipelineStatsNotFoundException::new));

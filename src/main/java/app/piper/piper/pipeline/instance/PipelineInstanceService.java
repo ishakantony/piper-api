@@ -1,7 +1,7 @@
 package app.piper.piper.pipeline.instance;
 
+import app.piper.piper.pipeline.InvalidPipelineException;
 import app.piper.piper.pipeline.Pipeline;
-import app.piper.piper.pipeline.PipelineNotFoundException;
 import app.piper.piper.pipeline.PipelineRepository;
 import java.util.List;
 import java.util.UUID;
@@ -21,7 +21,7 @@ public class PipelineInstanceService {
     private final PipelineInstanceMapper pipelineInstanceMapper;
 
     public List<PipelineInstanceResponse> findByPipelineId(@NonNull UUID pipelineId) {
-        Pipeline pipeline = pipelineRepository.findById(pipelineId).orElseThrow(PipelineNotFoundException::new);
+        Pipeline pipeline = pipelineRepository.findById(pipelineId).orElseThrow(InvalidPipelineException::new);
 
         return pipelineInstanceRepository.findByPipeline_Id(pipeline.getId()).stream()
                 .map(pipelineInstanceMapper::pipelineInstanceToPipelineInstanceResponse).collect(Collectors.toList());
