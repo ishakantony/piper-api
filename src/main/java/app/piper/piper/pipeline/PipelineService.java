@@ -4,6 +4,7 @@ import app.piper.piper.common.PaginationRequest;
 import app.piper.piper.common.PaginationResponse;
 import app.piper.piper.util.PaginationMapper;
 import app.piper.piper.util.SlugGenerator;
+import java.util.UUID;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -58,6 +59,11 @@ public class PipelineService {
                 .map(pipelineMapper::pipelineToPipelineResponse);
 
         return PaginationMapper.map(pipelineResponsePage.getContent(), pipelineResponsePage);
+    }
+
+    public PipelineResponse findById(UUID pipelineId) {
+        return pipelineMapper.pipelineToPipelineResponse(
+                pipelineRepository.findById(pipelineId).orElseThrow(PipelineNotFoundException::new));
     }
 
 }
