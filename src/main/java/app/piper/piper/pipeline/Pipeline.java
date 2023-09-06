@@ -40,8 +40,7 @@ public class Pipeline extends BaseEntity {
     @OrderBy("revision ASC")
     private Set<PipelineTemplate> templates = new LinkedHashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pipeline_stats_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "pipeline")
     private PipelineStats stats;
 
 }

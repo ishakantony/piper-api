@@ -40,11 +40,21 @@ public class PipelineStatsService {
 
         if (instances.isEmpty()) {
             // There no instances for this pipeline, cannot collect stats
-            return pipelineStatsMapper.pipelineStatsToPipelineStatsResponse(pipelineStatsRepository.save(stats));
+            throw new PipelineStatsCollectException();
         }
         else {
-            return pipelineStatsMapper.pipelineStatsToPipelineStatsResponse(
-                    pipelineStatsRepository.save(pipelineStatsCollector.collectStatsFromPipelineInstances(instances)));
+            PipelineStats updatedStats = pipelineStatsCollector.collectStatsFromPipelineInstances(instances);
+
+            stats.setHealth(updatedStats.getHealth());
+            stats.setLastSuccessPipelineCompletedAt(updatedStats.getLastSuccessPipelineCompletedAt());
+            stats.setLastFailedPipelineCompletedAt(updatedStats.getLastFailedPipelineCompletedAt());
+            stats.setTotalPipelinesCount(updatedStats.getTotalPipelinesCount());
+            stats.setLongestRunningDuration(updatedStats.getLongestRunningDuration());
+            stats.setShortestRunningDuration(updatedStats.getShortestRunningDuration());
+            stats.setAverageRunningDuration(updatedStats.getAverageRunningDuration());
+            stats.setPipeline(pipeline);
+
+            return pipelineStatsMapper.pipelineStatsToPipelineStatsResponse(pipelineStatsRepository.save(stats));
         }
     }
 

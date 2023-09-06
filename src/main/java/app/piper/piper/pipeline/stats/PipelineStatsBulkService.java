@@ -5,12 +5,14 @@ import app.piper.piper.pipeline.PipelineRepository;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PipelineStatsBulkService {
 
     private final PipelineRepository pipelineRepository;
@@ -31,7 +33,14 @@ public class PipelineStatsBulkService {
                 break;
             }
 
-            pipelines.map(Pipeline::getId).forEach(pipelineStatsService::collectStats);
+            pipelines.map(Pipeline::getId).forEach((pipelineId) -> {
+                try {
+                    pipelineStatsService.collectStats(pipelineId);
+                }
+                catch (PipelineStatsCollectException e) {
+                    log.warn("Failed to collect stats for [{}]. REASON: [{}]", pipelineId, e.getMessage());
+                }
+            });
         }
     }
 

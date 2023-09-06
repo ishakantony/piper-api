@@ -44,15 +44,12 @@ databaseChangeLog:
               - column:
                   name: average_running_duration
                   type: numeric(21,0)
-        - addColumn:
-            tableName: pipeline
-            columns:
               - column:
-                  name: pipeline_stats_id
+                  name: pipeline_id
                   type: uuid
         - addForeignKeyConstraint:
-            baseColumnNames: pipeline_stats_id
-            baseTableName: pipeline
-            constraintName: FK_pipeline_pipeline_stats
-            referencedTableName: pipeline_stats
+            baseColumnNames: pipeline_id
+            baseTableName: pipeline_stats
+            constraintName: FK_pipeline_stats_pipeline
+            referencedTableName: pipeline
             referencedColumnNames: id

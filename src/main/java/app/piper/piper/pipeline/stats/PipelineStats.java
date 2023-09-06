@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import java.time.Duration;
 import java.time.OffsetDateTime;
@@ -34,7 +35,8 @@ public class PipelineStats extends BaseEntity {
 
     private Duration averageRunningDuration;
 
-    @OneToOne(mappedBy = "stats")
+    @OneToOne
+    @JoinColumn(name = "pipeline_id", referencedColumnName = "id")
     private Pipeline pipeline;
 
 }
