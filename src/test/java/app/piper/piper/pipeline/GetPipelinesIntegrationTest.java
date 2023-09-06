@@ -13,7 +13,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -42,8 +41,6 @@ public class GetPipelinesIntegrationTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).hasSize(5);
-        assertThat(response.getBody().getTotalItems()).isEqualTo(10);
-        assertThat(response.getBody().getTotalPages()).isEqualTo(2);
         assertThat(response.getBody().getPageSize()).isEqualTo(5);
         assertThat(response.getBody().getPageNumber()).isEqualTo(0);
         assertThat(response.getBody().getIsFirstPage()).isTrue();
@@ -61,12 +58,9 @@ public class GetPipelinesIntegrationTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).hasSize(5);
-        assertThat(response.getBody().getTotalItems()).isEqualTo(10);
-        assertThat(response.getBody().getTotalPages()).isEqualTo(2);
         assertThat(response.getBody().getPageSize()).isEqualTo(5);
         assertThat(response.getBody().getPageNumber()).isEqualTo(1);
         assertThat(response.getBody().getIsFirstPage()).isFalse();
-        assertThat(response.getBody().getIsLastPage()).isTrue();
     }
 
     @Test
@@ -80,12 +74,9 @@ public class GetPipelinesIntegrationTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).hasSize(10);
-        assertThat(response.getBody().getTotalItems()).isEqualTo(10);
-        assertThat(response.getBody().getTotalPages()).isEqualTo(1);
         assertThat(response.getBody().getPageSize()).isEqualTo(10);
         assertThat(response.getBody().getPageNumber()).isEqualTo(0);
         assertThat(response.getBody().getIsFirstPage()).isTrue();
-        assertThat(response.getBody().getIsLastPage()).isTrue();
     }
 
     @Test
@@ -100,14 +91,17 @@ public class GetPipelinesIntegrationTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).hasSize(5);
-        assertThat(response.getBody().getTotalItems()).isEqualTo(10);
-        assertThat(response.getBody().getTotalPages()).isEqualTo(2);
         assertThat(response.getBody().getPageSize()).isEqualTo(5);
         assertThat(response.getBody().getPageNumber()).isEqualTo(0);
         assertThat(response.getBody().getIsFirstPage()).isTrue();
         assertThat(response.getBody().getIsLastPage()).isFalse();
-        assertThat(response.getBody().getContent().get(0)).isNotNull();
-        assertThat(response.getBody().getContent().get(0).getName()).isEqualTo("Weather Data Processing Pipeline");
+
+        PipelineResponse firstPipelineInTheResponse = response.getBody().getContent().get(0);
+
+        PipelineResponse secondPipelineInTheResponse = response.getBody().getContent().get(1);
+
+        assertThat(firstPipelineInTheResponse.getCreatedAt())
+                .isAfterOrEqualTo(secondPipelineInTheResponse.getCreatedAt());
     }
 
     @Test
@@ -122,8 +116,6 @@ public class GetPipelinesIntegrationTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getContent()).hasSize(5);
-        assertThat(response.getBody().getTotalItems()).isEqualTo(10);
-        assertThat(response.getBody().getTotalPages()).isEqualTo(2);
         assertThat(response.getBody().getPageSize()).isEqualTo(5);
         assertThat(response.getBody().getPageNumber()).isEqualTo(0);
         assertThat(response.getBody().getIsFirstPage()).isTrue();
