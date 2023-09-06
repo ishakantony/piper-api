@@ -6,7 +6,7 @@ import org.springframework.web.client.HttpServerErrorException;
 public class SettingMissingException extends HttpServerErrorException {
 
     public SettingMissingException() {
-        super(HttpStatus.INTERNAL_SERVER_ERROR, "Missing settings");
+        super(HttpStatus.INTERNAL_SERVER_ERROR, "Missing settings, please check if settings exist in the DB.");
     }
 
 }

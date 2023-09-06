@@ -9,18 +9,18 @@ import java.time.OffsetDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.OptionalDouble;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class PipelineStatsCollector {
 
-    private final SettingStore settingStore;
+    private final double healthyPipelineTolerance;
+
+    public PipelineStatsCollector(SettingStore settingStore) {
+        this.healthyPipelineTolerance = settingStore.getPipelineStatisticsSettings().getHealthyPipelineTolerance();
+    }
 
     public PipelineStats collectStatsFromPipelineInstances(List<PipelineInstance> instances) {
-        double healthyPipelineTolerance = settingStore.getPipelineStatisticsSetting().getHealthyPipelineTolerance();
-
         OffsetDateTime lastSuccessPipelineCompletedAt = instances.stream()
                 .filter(instance -> instance.getStatus() == PipelineInstanceStatus.SUCCESSFUL)
                 .max(Comparator.comparing(PipelineInstance::getCreatedAt)).map(PipelineInstance::getCreatedAt)
