@@ -48,4 +48,11 @@ public class PipelineStatsService {
         }
     }
 
+    public PipelineStatsResponse getStats(@NonNull UUID pipelineId) {
+        Pipeline pipeline = pipelineRepository.findById(pipelineId).orElseThrow(PipelineNotFoundException::new);
+
+        return pipelineStatsMapper.pipelineStatsToPipelineStatsResponse(
+                Optional.ofNullable(pipeline.getStats()).orElseThrow(PipelineStatsNotFoundException::new));
+    }
+
 }
