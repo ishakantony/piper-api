@@ -4,16 +4,21 @@ WORKDIR /workspace/app
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
-COPY src src
 COPY .springjavaformatconfig .springjavaformatconfig
 COPY checkstyle.xml checkstyle.xml
 
-RUN ./mvnw install -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+COPY piper-backend/ ./piper-backend/
+COPY piper-common/ ./piper-common/
+
+ARG MODULE=piper-backend
+
+RUN ./mvnw install -DskipTests -pl piper-backend -am
+RUN mkdir -p ${MODULE}/target/dependency && (cd ${MODULE}/target/dependency; jar -xf ../*.jar)
 
 FROM amazoncorretto:17-alpine-jdk
 VOLUME /tmp
-ARG DEPENDENCY=/workspace/app/target/dependency
+ARG MODULE=piper-backend
+ARG DEPENDENCY=/workspace/app/${MODULE}/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
