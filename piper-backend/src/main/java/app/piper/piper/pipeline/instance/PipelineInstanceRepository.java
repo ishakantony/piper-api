@@ -23,4 +23,7 @@ public interface PipelineInstanceRepository extends Repository<PipelineInstance,
     @Transactional
     PipelineInstance save(PipelineInstance pipelineInstance);
 
+    @Transactional(readOnly = true)
+    Optional<PipelineInstance> findById(UUID id);
+
 }

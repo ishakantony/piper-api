@@ -63,4 +63,9 @@ public class PipelineInstanceService {
                 .pipelineInstanceToPipelineInstanceResponse(pipelineInstanceRepository.save(newPipelineInstance));
     }
 
+    public PipelineInstanceResponse getById(@NonNull UUID instanceId) {
+        return pipelineInstanceMapper.pipelineInstanceToPipelineInstanceResponse(
+                pipelineInstanceRepository.findById(instanceId).orElseThrow(PipelineInstanceNotFoundException::new));
+    }
+
 }
