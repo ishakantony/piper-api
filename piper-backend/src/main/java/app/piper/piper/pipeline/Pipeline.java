@@ -7,6 +7,7 @@ import app.piper.piper.pipeline.template.PipelineTemplate;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -40,7 +41,7 @@ public class Pipeline extends BaseEntity {
     @OrderBy("revision ASC")
     private Set<PipelineTemplate> templates = new LinkedHashSet<>();
 
-    @OneToOne(mappedBy = "pipeline")
+    @OneToOne(mappedBy = "pipeline", fetch = FetchType.LAZY)
     private PipelineStats stats;
 
 }

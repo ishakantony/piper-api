@@ -38,6 +38,7 @@ public class GlobalExceptionHandler {
     // Standard server error
     @ExceptionHandler(HttpServerErrorException.class)
     public ResponseEntity<?> httpServerErrorExceptionHandler(HttpServerErrorException ex) {
+        log.error(ex.getMessage(), ex);
         ErrorResponseBody.ErrorResponseBodyBuilder builder = ErrorResponseBody.builder().code(ErrorCode.SERVER_ERROR)
                 .error(ex.getMessage());
 
@@ -71,6 +72,10 @@ public class GlobalExceptionHandler {
     // Use this exception always
     @ExceptionHandler(PiperException.class)
     public ResponseEntity<ErrorResponseBody> handleUncaughtPiperException(PiperException ex) {
+        if (ex.getStatus().is5xxServerError()) {
+            log.error(ex.getMessage(), ex);
+        }
+
         ErrorResponseBody.ErrorResponseBodyBuilder builder = ErrorResponseBody.builder().code(ex.getCode())
                 .errors(ex.getErrors());
 
@@ -84,9 +89,7 @@ public class GlobalExceptionHandler {
     // Root of all exceptions, if any handlers can't handle, goes here
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponseBody> handleUncaughtRuntimeException(RuntimeException ex) {
-        this.logError(ex.getMessage(), ex.getClass().getSimpleName(), ex.getStackTrace()[0].getClassName(),
-                ex.getStackTrace()[0].getLineNumber());
-        this.logTrace(ex);
+        log.error(ex.getMessage(), ex);
 
         ErrorResponseBody.ErrorResponseBodyBuilder builder = ErrorResponseBody.builder()
                 .code(ErrorCode.RUNTIME_EXCEPTION).error(ex.getMessage());
@@ -102,15 +105,6 @@ public class GlobalExceptionHandler {
         return fieldErrors.stream()
                 .map(fieldError -> "Invalid field [" + fieldError.getField() + "], " + fieldError.getDefaultMessage())
                 .collect(Collectors.toList());
-    }
-
-    private void logError(String message, String className, String traceClassName, int traceLineNumber) {
-        log.error("Exception: code: {}, message: {}, {} at ({}:{})", HttpStatus.INTERNAL_SERVER_ERROR, message,
-                className, traceClassName, traceLineNumber);
-    }
-
-    private void logTrace(RuntimeException ex) {
-        log.trace("{}: {}", ex.getClass().getSimpleName(), ex.getMessage(), ex);
     }
 
 }

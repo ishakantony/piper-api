@@ -10,10 +10,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PipelineInstanceService {
 
     private final PipelineRepository pipelineRepository;
@@ -32,15 +34,21 @@ public class PipelineInstanceService {
     }
 
     public PipelineInstanceResponse createFromPipeline(@NonNull UUID pipelineId) {
-        Pipeline pipeline = pipelineRepository.findById(pipelineId).orElseThrow(InvalidPipelineException::new);
+        log.debug("Creating pipeline instance for pipeline id [{}]", pipelineId);
 
-        PipelineTemplate pipelineTemplate = pipelineTemplateRepository.findByPipelineOrderByRevisionDesc(pipeline)
-                .orElseThrow(PipelineTemplateRequiredException::new);
+        Pipeline pipeline = pipelineRepository.findWithNameOnlyById(pipelineId)
+                .orElseThrow(InvalidPipelineException::new).toPipeline();
+        log.debug("Pipeline found [{}]", pipeline);
+
+        PipelineTemplate pipelineTemplate = pipelineTemplateRepository.findLatestByPipeline(pipeline)
+                .orElseThrow(PipelineTemplateRequiredException::new).toPipelineTemplate();
+        log.debug("Pipeline template found [{}]", pipelineTemplate);
 
         int currentMaxInstanceNumber = pipelineInstanceRepository.findLatestInstanceNumberByPipeline(pipeline)
                 .orElse(0);
 
         int newInstanceNumber = currentMaxInstanceNumber + 1;
+        log.debug("Current max instance number is [{}], next is [{}]", currentMaxInstanceNumber, newInstanceNumber);
 
         PipelineInstance newPipelineInstance = new PipelineInstance();
 
@@ -50,6 +58,7 @@ public class PipelineInstanceService {
         newPipelineInstance.setPipeline(pipeline);
         newPipelineInstance.setPipelineTemplate(pipelineTemplate);
 
+        log.debug("Creating new pipeline instance [{}]", newPipelineInstance);
         return pipelineInstanceMapper
                 .pipelineInstanceToPipelineInstanceResponse(pipelineInstanceRepository.save(newPipelineInstance));
     }

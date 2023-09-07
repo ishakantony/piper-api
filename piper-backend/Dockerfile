@@ -9,6 +9,7 @@ COPY checkstyle.xml checkstyle.xml
 
 COPY piper-backend/ ./piper-backend/
 COPY piper-common/ ./piper-common/
+COPY piper-load-generator/ ./piper-load-generator/
 
 ARG MODULE=piper-backend
 
