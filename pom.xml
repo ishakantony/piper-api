@@ -22,6 +22,7 @@
 	<modules>
 		<module>piper-backend</module>
 		<module>piper-common</module>
+		<module>piper-load-generator</module>
 	</modules>
 
 	<properties>
