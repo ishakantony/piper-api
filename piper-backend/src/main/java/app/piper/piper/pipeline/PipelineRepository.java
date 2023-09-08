@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 public interface PipelineRepository extends Repository<Pipeline, UUID> {
 
     @Transactional(readOnly = true)
+    Optional<Pipeline> findByName(String name);
+
+    @Transactional(readOnly = true)
     Optional<Pipeline> findById(UUID id);
 
     @Transactional(readOnly = true)

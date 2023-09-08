@@ -4,6 +4,7 @@ import app.piper.piper.common.PaginationRequest;
 import app.piper.piper.common.PaginationResponse;
 import app.piper.piper.util.PaginationMapper;
 import app.piper.piper.util.SlugGenerator;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,17 @@ public class PipelineService {
     private final PipelineMapper pipelineMapper;
 
     private final SlugGenerator slugGenerator;
+
+    public PipelineResponse createPipelineIfNotExist(@NonNull PipelineRequest pipelineRequest) {
+        Optional<Pipeline> optionalPipeline = pipelineRepository.findByName(pipelineRequest.getName());
+
+        if (optionalPipeline.isPresent()) {
+            return pipelineMapper.pipelineToPipelineResponse(optionalPipeline.get());
+        }
+        else {
+            return this.createPipeline(pipelineRequest);
+        }
+    }
 
     public PipelineResponse createPipeline(@NonNull PipelineRequest pipelineRequest) {
         try {
