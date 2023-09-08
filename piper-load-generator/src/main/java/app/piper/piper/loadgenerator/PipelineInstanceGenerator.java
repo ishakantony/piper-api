@@ -52,30 +52,35 @@ public class PipelineInstanceGenerator {
     @Scheduled(fixedRate = 1000)
     public void autoGeneratePipelines() {
         try {
-            log.info("================== PIPELINE INSTANCE GENERATOR START ==================");
+            log.debug("================== PIPELINE INSTANCE GENERATOR START ==================");
             UUID pipelineId = this.getPipelineId();
 
             PipelineInstanceResponse createdPipelineInstance = this.generateInstance(pipelineId);
-            log.info("New Pipeline generated. INSTANCE: {}", createdPipelineInstance.getName());
+            log.debug("New Pipeline generated. INSTANCE: {}", createdPipelineInstance.getName());
 
             this.startInstance(createdPipelineInstance.getId());
-            log.info("Instance started");
+            log.debug("Instance started");
 
             // Make it 80% success
             if (random.nextInt(10) > 2) {
                 this.markInstanceAsSuccess(createdPipelineInstance.getId());
-                log.info("Marking instance as success");
+                log.debug("Marking instance as success");
             }
             else {
                 this.markInstanceAsFailed(createdPipelineInstance.getId());
-                log.info("Marking instance as failed");
+                log.debug("Marking instance as failed");
+            }
+
+            if (!log.isDebugEnabled()) {
+                log.info("Pipeline generation done for PIPELINE[{}] and INSTANCE[{}]", pipelineId,
+                        createdPipelineInstance.getName());
             }
         }
         catch (Exception e) {
             log.error("Failed to generate pipeline. REASON: {}", e.getMessage());
         }
         finally {
-            log.info("================== PIPELINE INSTANCE GENERATOR END ==================");
+            log.debug("================== PIPELINE INSTANCE GENERATOR END ==================");
         }
     }
 

@@ -1,0 +1,6 @@
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %highlight(%-5level) %msg%n"
+  level:
+    root: OFF
+    app.piper: INFO

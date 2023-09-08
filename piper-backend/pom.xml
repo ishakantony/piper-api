@@ -59,9 +59,11 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+        <!-- Use custom version because of security vulnerabilities -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <version>2.2.222</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -110,6 +112,13 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!-- Fix security vulnerabilities -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.2</version>
         </dependency>
     </dependencies>
 
