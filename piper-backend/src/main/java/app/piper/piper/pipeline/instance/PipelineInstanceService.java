@@ -1,16 +1,20 @@
 package app.piper.piper.pipeline.instance;
 
+import app.piper.piper.common.PaginationRequest;
+import app.piper.piper.common.PaginationResponse;
 import app.piper.piper.pipeline.InvalidPipelineException;
 import app.piper.piper.pipeline.Pipeline;
 import app.piper.piper.pipeline.PipelineRepository;
 import app.piper.piper.pipeline.template.PipelineTemplate;
 import app.piper.piper.pipeline.template.PipelineTemplateRepository;
-import java.util.List;
+import app.piper.piper.util.PaginationMapper;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,11 +30,19 @@ public class PipelineInstanceService {
 
     private final PipelineTemplateRepository pipelineTemplateRepository;
 
-    public List<PipelineInstanceResponse> findByPipelineId(@NonNull UUID pipelineId) {
+    public PaginationResponse<PipelineInstanceResponse> findByPipelineId(@NonNull UUID pipelineId,
+            @NonNull PaginationRequest paginationRequest) {
         Pipeline pipeline = pipelineRepository.findById(pipelineId).orElseThrow(InvalidPipelineException::new);
 
-        return pipelineInstanceRepository.findByPipeline_Id(pipeline.getId()).stream()
-                .map(pipelineInstanceMapper::pipelineInstanceToPipelineInstanceResponse).collect(Collectors.toList());
+        PageRequest pageRequest = PageRequest.of(paginationRequest.getPageNumber(), paginationRequest.getPageSize(),
+                Sort.by(Sort.Direction.fromString(paginationRequest.getSortDirection()),
+                        paginationRequest.getSortBy()));
+
+        Page<PipelineInstanceResponse> page = pipelineInstanceRepository
+                .findPageByPipeline_id(pipeline.getId(), pageRequest)
+                .map(pipelineInstanceMapper::pipelineInstanceToPipelineInstanceResponse);
+
+        return PaginationMapper.map(page.getContent(), page);
     }
 
     public PipelineInstanceResponse createFromPipeline(@NonNull UUID pipelineId) {
