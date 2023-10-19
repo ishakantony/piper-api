@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  piper-load-generator:
+    profiles:
+      - with-loader
+    build:
+      dockerfile: ./piper-load-generator/Dockerfile
+    networks:
+      - piper
+    depends_on:
+      - piper-backend
+    environment:
+      - PIPER_BACKEND_BASE_URL=http://piper-backend
+
+  piper-backend:
+    build:
+      dockerfile: ./piper-backend/Dockerfile
+    ports:
+      - "2796:80"
+    networks:
+      - piper
+    environment:
+      - PIPER_SERVER_PORT=80
+      - SPRING_LIQUIBASE_CONTEXTS=test
+      - PIPER_DB_USERNAME=sa
+      - PIPER_DB_PASSWORD=
+      - PIPER_DB_JDBC_URL=jdbc:h2:mem:piper
+
+networks:
+  piper:
+
+volumes:
+  db-data:
